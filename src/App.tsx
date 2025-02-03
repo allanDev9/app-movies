@@ -1,16 +1,14 @@
 import { useState } from "react"
 import { PeliculasJSON } from "./componets/data/PeliculasData"
-import { Peliculas } from "./componets/page/Peliculas"
+import { PeliculasContainer } from "./componets/page/peliculasContainer"
+import { BrowserRouter } from "react-router-dom"
+import { AppRoutes } from "./routes/AppRouter"
 
 export const App = (): JSX.Element => {
-  const [peliculas] = useState(PeliculasJSON)
-
   return (
-    <>
-      <div className="bg-black h-auto">
-        <Peliculas peliculas={peliculas} />
-      </div>
-    </>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   )
 }
 
