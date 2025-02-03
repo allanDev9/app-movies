@@ -43,13 +43,13 @@ export const Peliculas: React.FC<PeliculaProps> = ({ peliculas, username }) => {
     return (
         <>
             <div className='bg-black h-auto pb-5'>
-                <h1 className='text-white font-serif text-center text-6xl mb-10 pt-10 font-bold'>Películas</h1>
+                <h1 className='text-white font-serif text-center text-6xl mb-10 pt-10 font-bold max-sm:text-start max-sm: ml-10 max-sm:mb-[-10px] max-md:text-start max-md:mb-[-10px]'>Películas</h1>
                 <div className='flex justify-end mr-10'>
-                    <h1 className='text-white mr-10 mt-[-7%] font-bold flex-wrap text-2xl'><AccountCircleIcon fontSize='large' /> {username}</h1>
+                    <h1 className='text-white mr-10 mt-[-7%] font-bold flex-wrap text-2xl max-sm:mr-[10px] max-md:mr-[10px]'><AccountCircleIcon fontSize='large' /> {username}</h1>
                 </div>
-                <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4" style={{ maxHeight: '70vh' }}>
+                <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4 max-sm:flex-col max-sm:w-[85%] max-md:w-[89%]" style={{ maxHeight: '70vh' }}>
                     {peliculas.map((pelicula) => (
-                        <Card className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5' key={pelicula.id}>
+                        <Card className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5 max-sm:w-[90%] max-md:w-[50%]' key={pelicula.id}>
                             <CardContent>
                                 <div className='m-[-18px]'>
                                     <img
