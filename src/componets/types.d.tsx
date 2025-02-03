@@ -1,4 +1,4 @@
-export interface ListofMovies {
+export interface Pelicula {
     id: number;
     titulo: string;
     categoria: string;

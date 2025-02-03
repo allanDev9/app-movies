@@ -3,19 +3,22 @@ import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import { ListofMovies } from '../types.d';
+import { Pelicula } from '../types.d';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './Peliculas.css';
 
 import { appMoviesApi } from '../../services/appMoviesApi';
 
-interface Props {
-    peliculas: ListofMovies[];
+interface PeliculaProps {
+    username: string;
+    peliculas: Pelicula[];
 }
 
-export const Peliculas: React.FC<Props> = ({ peliculas }) => {
+
+export const Peliculas: React.FC<PeliculaProps> = ({ peliculas, username }) => {
     const empleadosJSON = {
         nombre: '',
         edad: '',
@@ -41,6 +44,9 @@ export const Peliculas: React.FC<Props> = ({ peliculas }) => {
         <>
             <div className='bg-black h-auto pb-5'>
                 <h1 className='text-white font-serif text-center text-6xl mb-10 pt-10 font-bold'>Películas</h1>
+                <div className='flex justify-end mr-10'>
+                    <h1 className='text-white mr-10 mt-[-7%] font-bold flex-wrap text-2xl'><AccountCircleIcon fontSize='large' /> {username}</h1>
+                </div>
                 <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4" style={{ maxHeight: '70vh' }}>
                     {peliculas.map((pelicula) => (
                         <Card className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5' key={pelicula.id}>
@@ -65,7 +71,7 @@ export const Peliculas: React.FC<Props> = ({ peliculas }) => {
                     ))}
                 </div>
             </div>
-            <div className='flex justify-center bg-blue-500 pt-10'>
+            <div className='flex justify-center bg-red-700 pt-10'>
                 <div className="card bg-white w-[60%] text-black mb-10">
                     <h1 className='text-center text-4xl font-bold text-red-700 mb-5'>Peliculas disponibles</h1>
                     <DataTable className='text-xl ml-5 mb-5' value={peliculas}
