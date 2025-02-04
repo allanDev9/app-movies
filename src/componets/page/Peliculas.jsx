@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import { Pelicula } from '../types.d';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './Peliculas.css';
@@ -13,19 +12,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { appMoviesApi } from '../../services/appMoviesApi';
 
-interface PeliculaProps {
-    username: string;
-    peliculas: Pelicula[];
-}
 
-
-export const Peliculas: React.FC<PeliculaProps> = ({ peliculas, username }) => {
-    const empleadosJSON = {
-        nombre: '',
-        edad: '',
-        telefono: '',
-    }
-
+export const Peliculas = ({ peliculas, username }) => {
     const navigate = useNavigate();
     const [listEmpleados, setListEmpleados] = useState([]);
 
