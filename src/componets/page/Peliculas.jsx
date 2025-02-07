@@ -74,9 +74,9 @@ export const Peliculas = ({ peliculas, username }) => {
                         size='small'
                         paginator rows={5} rowsPerPageOptions={[5, 10, 15]}
                     >
-                        <Column field="nombre" header="Titulo"></Column>
-                        <Column field="usuario" header="Categoria"></Column>
-                        <Column field="password" header="Duración"></Column>
+                        <Column field="nombre" header="Nombre"></Column>
+                        <Column field="usuario" header="Usuario"></Column>
+                        <Column field="password" header="Constraseña"></Column>
                     </DataTable >
                 </div >
             </div >
