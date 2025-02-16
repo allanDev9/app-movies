@@ -9,6 +9,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './Peliculas.css';
 import { useNavigate } from 'react-router-dom';
+import { Dialog } from 'primereact/dialog';
 
 import { appMoviesApi } from '../../services/appMoviesApi';
 
@@ -16,6 +17,9 @@ import { appMoviesApi } from '../../services/appMoviesApi';
 export const Peliculas = ({ peliculas, usuario }) => {
     const navigate = useNavigate();
     const [listUsuarios, setListUsuarios] = useState([]);
+    const [countMovies, setContMovies] = useState(0);
+    const [visible, setVisible] = useState(false);
+    const [selectedPelicula, setSelectedPelicula] = useState(null);
 
     useEffect(() => {
         const fetchUsurios = async () => {
@@ -28,10 +32,21 @@ export const Peliculas = ({ peliculas, usuario }) => {
         };
 
         fetchUsurios();
-    }, []);
+        setContMovies(peliculas.length);
+    }, [peliculas]);
 
     const handleBack = () => {
         navigate('/login')
+    }
+
+    const openDialog = (pelicula) => {
+        setSelectedPelicula(pelicula);
+        setVisible(true);
+    }
+
+    const closeDialog = () => {
+        setVisible(false);
+        setSelectedPelicula(null);
     }
 
     return (
@@ -43,7 +58,8 @@ export const Peliculas = ({ peliculas, usuario }) => {
                 </div>
                 <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4 max-sm:flex-col max-sm:w-[65%] max-md:w-[89%]" style={{ maxHeight: '70vh' }}>
                     {peliculas.map((pelicula) => (
-                        <Card className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5 max-sm:w-[90%] max-md:w-[50%] max-lg:w-[40%] max-xl:w-[35%]' key={pelicula.id}>
+                        <Card onClick={() => openDialog(pelicula)} className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5 max-sm:w-[90%] max-md:w-[50%] max-lg:w-[40%] max-xl:w-[35%]'
+                            key={pelicula.id}>
                             <CardContent>
                                 <div className='m-[-18px]'>
                                     <img
@@ -70,8 +86,12 @@ export const Peliculas = ({ peliculas, usuario }) => {
             <div className='flex justify-center bg-red-700 pt-10'>
                 <div className="card bg-white w-[60%] text-black mb-10">
                     <h1 className='text-center text-4xl font-bold text-red-700 mb-5'>Peliculas disponibles</h1>
+                    <span className='text-xl ml-5 mb-5 text-blue-700 font-bold'>
+                        Total de peliculas: {countMovies}
+                    </span>
                     <DataTable className='text-xl ml-5 mb-5' value={peliculas}
                         showGridlines
+                        selection={peliculas}
                         stripedRows
                         size='small'
                         paginator rows={5} rowsPerPageOptions={[5, 10, 15]}
@@ -81,6 +101,18 @@ export const Peliculas = ({ peliculas, usuario }) => {
                         <Column field="duracion" header="Duracion"></Column>
                     </DataTable >
                 </div >
+                <div className="card flex justify-content-center">
+                    <Dialog header="Datos Pelicula" visible={visible} style={{ width: '50vw' }} onHide={closeDialog}>
+                        {selectedPelicula && (
+                            <div className='flex flex-col gap-10'>
+                                <h2 className='text-xl text-black font-bold'>Título: {selectedPelicula.titulo}</h2>
+                                <p className='text-xl text-black font-bold'>Categoría: {selectedPelicula.categoria}</p>
+                                <p className='text-xl text-black font-bold'>Duración: {selectedPelicula.duracion} min</p>
+                            </div>
+                        )
+                        }
+                    </Dialog>
+                </div>
             </div >
         </>
     );
