@@ -1,3 +1,16 @@
 .sombreado {
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.5);
 }
+
+.toast-custom {
+    background-color: #333;
+    /* Color de fondo */
+    color: #fff;
+    /* Color del texto */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    padding: 10px;
+    /* Espaciado interno */
+    font-weight: bold;
+    /* Negrita */
+}
