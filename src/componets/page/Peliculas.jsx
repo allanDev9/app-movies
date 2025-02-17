@@ -62,6 +62,9 @@ export const Peliculas = ({ peliculas, usuario }) => {
         setSelectedPelicula(null);
     }
 
+    const handleUpload = async (e) => {
+    }
+
     return (
         <>
             <div className='bg-black h-auto pb-5'>
