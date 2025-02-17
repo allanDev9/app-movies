@@ -10,9 +10,22 @@ import { Column } from 'primereact/column';
 import './Peliculas.css';
 import { useNavigate } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 import { appMoviesApi } from '../../services/appMoviesApi';
 
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
 
 export const Peliculas = ({ peliculas, usuario }) => {
     const navigate = useNavigate();
@@ -56,7 +69,7 @@ export const Peliculas = ({ peliculas, usuario }) => {
                 <div className='flex justify-end mr-10 flex-row'>
                     <h1 className='text-yellow-400 mr-10 mt-[-6%] font-bold flex-wrap text-2xl max-sm:mr-[-30px] max-sm:mt-[-35px]  max-md:mr-[10px] max-md:mt-[-40px] max max-lg:mr-[10px] max-xl:mt-[-40px] '><AccountCircleIcon fontSize='large' /> {usuario}</h1>
                 </div>
-                <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4 max-sm:flex-col max-sm:w-[65%] max-md:w-[89%]" style={{ maxHeight: '70vh' }}>
+                <div className="flex overflow-x-auto bg-blue-200 m-10 gap-10 rounded-xl justify-start p-4 max-sm:flex-col max-sm:w-[80%] max-md:w-[89%]" style={{ maxHeight: '70vh' }}>
                     {peliculas.map((pelicula) => (
                         <Card onClick={() => openDialog(pelicula)} className='diseño-peliculas w-[15%] flex-shrink-0 h-[55vh] m-5 max-sm:w-[90%] max-md:w-[50%] max-lg:w-[40%] max-xl:w-[35%]'
                             key={pelicula.id}>
@@ -77,19 +90,32 @@ export const Peliculas = ({ peliculas, usuario }) => {
                                 </div>
                             </CardContent>
                             <CardActions>
-                                <Button className='font-bold'>Ver</Button>
+                                <Button
+                                    component="label"
+                                    role={undefined}
+                                    variant="contained"
+                                    tabIndex={-1}
+                                    startIcon={<CloudUploadIcon />}
+                                >
+                                    Descargar
+                                    <VisuallyHiddenInput
+                                        type="file"
+                                        onChange={(event) => console.log(event.target.files)}
+                                        multiple
+                                    />
+                                </Button>
                             </CardActions>
                         </Card>
                     ))}
                 </div>
             </div>
-            <div className='flex justify-center bg-red-700 pt-10'>
+            <div className='flex justify-center bg-red-700 pt-10 max-sm:w-[100%]'>
                 <div className="card bg-white w-[60%] text-black mb-10">
                     <h1 className='text-center text-4xl font-bold text-red-700 mb-5'>Peliculas disponibles</h1>
                     <span className='text-xl ml-5 mb-5 text-blue-700 font-bold'>
                         Total de peliculas: {countMovies}
                     </span>
-                    <DataTable className='text-xl ml-5 mb-5' value={peliculas}
+                    <DataTable className='text-xl ml-5 mb-5 max-sm:pl-[30px] max-sm:pr-[30px] ' value={peliculas}
                         showGridlines
                         selection={peliculas}
                         stripedRows
